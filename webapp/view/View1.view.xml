@@ -1,0 +1,243 @@
+<mvc:View controllerName="createmultiple.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:f="sap.f" xmlns:core="sap.ui.core"
+    xmlns:svm="sap.ui.comp.smartvariants" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" 
+    xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:u="sap.ui.unified">
+    <Page id="page" title="{i18n>title}">
+    
+
+        <fb:FilterBar id = "filterBar" visible="false" persistencyKey ="myPersKey" useToolbar="false" search = ".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                                <fb:filterGroupItems>
+                                    <fb:FilterGroupItem id="_IDGenFilterGroupItem1" name = "Name" label = "Name" groupName="Group1" visibleInFilterBar="true">
+                                        <fb:control>
+                                            <MultiComboBox id="_IDGenMultiComboBox1" name = "Name" 
+                                                       selectionChange=".onSelectionChange"
+                                                       items = "{ path :'/Employee',
+                                                                  templateShareable: true }">
+                                                <core:Item id="_IDGenItem1" key = "{Name}" text = "{Name}" ></core:Item>
+                                            </MultiComboBox>
+                                        </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name = "Department" label = "Department" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="_IDGenMultiComboBox2" name = "Department" selectionChange=".onSelectionChange"
+                                                       items = "{path : '/Department',
+                                                                 templateShareable: true}">
+                                            <core:Item id="_IDGenItem2" key = "{Department}" text = "{DepartmentName}"/>
+                                         
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="_IDGenFilterGroupItem3" name = "Manager" label = "Manager" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="_IDGenMultiComboBox3" name = "Manager" selectionChange=".onSelectionChange"
+                                                       items = "{path : '/Employee',
+                                                                 templateShareable: true}">
+                                            <core:Item id="_IDGenItem3" key = "{Manager}" text = "{Manager}"/>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name = "CreatedDate" label = "CreatedDate" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <DateRangeSelection id="_IDGenDatePicker1" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" change=".onDateChange" />        
+                                       
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="_IDGenFilterGroupItem5" name = "UpdatedDate" label = "UpdatedDate" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <DateRangeSelection id="_IDGenDatePicker2" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" change=".onDateChange" />        
+                                       
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+
+                  
+
+        <content>
+            
+            <VBox id="_IDGenVBox1">               
+                <Toolbar id="_IDGenToolbar1">                          
+                        <!-- <Title id="_IDGenTitle1" text="Items ({path:'tableModel>/tabbleItems'} of {path:'tableModel>/tabbleItems'})"/> -->
+                    <ToolbarSpacer id="_IDGenToolbarSpacer1" ></ToolbarSpacer>
+                    <Button id="_IDGenButton0" text="FilterBar" icon="" type="Emphasized" press="onToggleFilterBarPress"></Button>
+                    <Button id="_IDGenButton1" text="ADD" icon="" type="Emphasized" press="onNavToDetails"></Button>
+                    <Button id="_IDGenButton2" text="" icon="sap-icon://edit" type="Emphasized" press="openUpdateFrag"></Button>
+                    <Button id="_IDGenButton3" text="" type="Emphasized" icon="sap-icon://delete" press="MultiDelete"></Button>
+                    <Button id="_IDGenButton110" text="Export to Excel" icon="sap-icon://excel-attachment" type="Emphasized" press="onExporttoExcel"></Button>
+                     <Button id="_IDGenButton1110" text="Export to PDF" icon="sap-icon://pdf-attachment" type="Emphasized" press="onExportToPDF"></Button>
+                    <Button id="_IDGenButton10" text="Deleted" icon="" type="Emphasized" press="openDeleteFrag"></Button>
+                    <Button id="_IDGenButton44" text ="" icon="sap-icon://refresh" type="Emphasized" press="onRefresh"></Button>
+                </Toolbar>
+                <Toolbar id="_IDGenToolbar2" >
+                    <Text id="_IDGe3nText8" text="All"></Text>
+                    <Switch id="switch" change="onMasterSwitch" ></Switch>
+                    <Text id="_IDGenText8" text="ID"></Text>
+                    <Switch id="switch0" change="onSwitchID" ></Switch>
+                    <Text id="_IDGenText9" text="Name"></Text>
+                    <Switch id="switch1" change="onSwitchName" ></Switch>
+                    <Text id="_IDGenText10" text="Department"></Text>
+                    <Switch id="switch2" change="onSwitchDept" ></Switch>
+                    <Text id="_IDGenText11" text="Email"></Text>
+                    <Switch id="switch3" change="onSwitchEmail" ></Switch>                            
+                    <Text id="_IDGenText12" text="Manager"></Text>
+                    <Switch id="switch4" change="onSwitchMana"></Switch>
+                </Toolbar>
+
+                <!-- <u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="XLSX,xlsx"
+									icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"/> -->
+
+                    <u:FileUploader
+                    id="fileUploader"
+                    name="myFileUpload"
+                    uploadUrl="upload/"
+                    tooltip="Upload your file to the local server"
+                    change="onFileChange"/>
+                
+
+                <!-- <unified:FileUploader
+            id="fileUploader"
+            change="onFileChange" /> -->
+            </VBox>   
+             
+            <Table items="{path:'tableModel>/EmpdataSet'}" id="table" mode="MultiSelect" class="printClass1" updateFinished="onUpdateFinished">
+
+                <columns>
+                    <Column id="_IDGenColumn1" demandPopin="true" minScreenWidth="Tablet" width="6rem" >
+                    <Label id="_IDGenLabel1" text="ID"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn2" demandPopin="true" minScreenWidth="Tablet" width="6rem" >
+                    <Label id="_IDGenLabel2" text="Name"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn3" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenLabel3" text="Department"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn4" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenLabel4" text="Email"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn5" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenLabel5" text="Manager"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn6" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenLabel56" text="Created Date"></Label>
+                    </Column>
+                    <Column id="_IDGenColumn7" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenLabel7" text="Updated Date"></Label>
+                    </Column>
+                    
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem1" >
+                        <cells>
+                        <Text id="_IDGenText1" text="{tableModel>ID}"></Text>
+                        <Text id="_IDGenText2" text="{tableModel>Name}"></Text>
+                        <Text id="_IDGenText3" text="{tableModel>Department/DepartmentName}"></Text>
+                        <Text id="_IDGenText4" text="{tableModel>Email}"></Text>
+                        <Text id="_IDGenText5" text="{tableModel>Manager}"></Text>
+                        <Text id="_IDGenText6" text="{path:'tableModel>CreatedDate',
+                                type : 'sap.ui.model.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-MM-dd'
+                                }}" />
+                        <Text id="_IDGenText7" text="{path:'tableModel>UpdatedDate',
+                                type : 'sap.ui.model.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-MM-dd'
+                                }}" />
+                        
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+</content>
+
+
+        <!-- <Table items="{/data}" id="t1able" mode="MultiSelect" class="printClass1" updateFinished="onUpdateFinished">
+
+                <columns>
+                    <Column id="_IDGenC2olumn1" demandPopin="true" minScreenWidth="Tablet" width="6rem" >
+                    <Label id="_ID2GenLabel1" text="ID"></Label>
+                    </Column>
+                    <Column id="_IDG2enColumn2" demandPopin="true" minScreenWidth="Tablet" width="6rem" >
+                    <Label id="_I2DGenLabel2" text="Name"></Label>
+                    </Column>
+                    <Column id="_IDGenC2olumn3" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_I1DGenLabel3" text="Department"></Label>
+                    </Column>
+                    <Column id="_IDGenCo3lumn4" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDG3enLabel4" text="Email"></Label>
+                    </Column>
+                    <Column id="_IDGe3nColumn5" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGen3Label5" text="Manager"></Label>
+                    </Column>
+                    <Column id="_ID3GenColumn6" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDG1enLabel56" text="Created Date"></Label>
+                    </Column>
+                    <Column id="_ID3GenColumn7" demandPopin="true" minScreenWidth="Tablet" width="6rem">
+                    <Label id="_IDGenL3abel7" text="Updated Date"></Label>
+                    </Column>
+                    
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDGenCol1umnListItem1" >
+                        <cells>
+                        <Text id="_IDGe11nText1" text="{ID}"></Text>
+                        <Text id="_IDG1enText2" text="{Name}"></Text>
+                        <Text id="_IDG1enText3" text="{Department}"></Text>
+                        <Text id="_I1DGenText4" text="{Email}"></Text>
+                        <Text id="_ID1GenText5" text="{Manager}"></Text>
+                        <Text id="_IDGen1Text6" text="{path:'Created Date',
+                                type : 'sap.ui.model.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-mm-dd'
+                                }}" />
+                        <Text id="_IDGenTex1t7" text="{path:'Updated Date',
+                                type : 'sap.ui.model.type.Date',
+                                formatOptions: {
+                                    pattern: 'yyyy-mm-dd'
+                                }}" />
+                        
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->
+
+
+        <!-- <table:Table
+            id="tableId" enableCellFilter="true"
+            rows="{path: '/Employee', parameters:{expand: 'Department'}}"
+            >
+            <table:columns>
+                <table:Column id="_ID1GenColumn1" >
+                    <Text id="_I1DGenText1" text="ID"/>
+                    <table:template>
+                        <Text id="_ID1GenText2" text="{ID}"/>
+                    </table:template>
+                </table:Column>
+                <table:Column id="_ID1GenColumn2" filterProperty="Name">
+                    <Text id="_IDGen1Text3" text="Name"/>
+                    <table:template>
+                        <Text id="_I1DGenText4" text="{Name}"/>
+                    </table:template>
+                </table:Column>
+                <table:Column id="_IDG1enColumn3" filterProperty="Department/DepartmentName">
+                    <Text id="_IDGenTe1xt5" text="Department"/>
+                    <table:template>
+                        <Text id="_IDG1enText6" text="{Department/DepartmentName}"/>
+                    </table:template>
+                </table:Column>
+                <table:Column id="_IDGenCo1lumn4">
+                    <Text id="_IDGe1nText7" text="Email"/>
+                    <table:template>
+                        <Text id="_IDGen11Text8" text="{Email}"/>
+                    </table:template>
+                </table:Column>
+                <table:Column id="_IDGenColum1n4" filterProperty="Manager">
+                    <Text id="_IDGenTe1xt7" text="Manager"/>
+                    <table:template>
+                        <Text id="_IDG1en1Text8" text="{Manager}"/>
+                    </table:template>
+                </table:Column>
+            </table:columns>
+        </table:Table> -->
+    </Page>
+</mvc:View>

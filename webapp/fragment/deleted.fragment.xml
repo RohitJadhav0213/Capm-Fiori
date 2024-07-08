@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+<Dialog id="Dilog2" title=" Deleted Employee Details" contentWidth="1000px">
+<Table id="deleted" items="{path:'EmployeeDeletedDataModel>/' ,parameters:{expand:'Department'}}">
+            <headerToolbar>
+                
+            </headerToolbar>
+            <columns>
+                <Column id="_IDGen1Column1">
+                    <header>
+                    <Label id="_IDGe1nLabel1" text="ID"></Label>
+                    </header>
+                </Column>
+                <Column id="_IDG1enColumn2">
+                    <header>
+                    <Label id="_IDGe1nLabel2" text="Name"></Label>
+                    </header>
+                </Column>
+                <Column id="_IDGen1Column3">
+                    <header>
+                    <Label id="_IDGe1nLabel3" text="Department"></Label>
+                    </header>
+                </Column>
+                <Column id="_IDGen11Column4">
+                    <header>
+                    <Label id="_IDG1enLabel4" text="Email"></Label>
+                    </header>
+                </Column>
+                <Column id="_IDGenC11olumn5">
+                    <header>
+                    <Label id="_IDG1enLabel5" text="Manager"></Label>
+                    </header>
+                </Column>
+                <Column id="_IDGen1Column6">
+                    <header>
+                    <Label id="_ID1GenLabel6" text=""></Label>
+                    </header>
+                </Column>
+                <Column id="_IDGe1nColumn7">
+                    <header>
+                    <Label id="_IDG1enLabel7" text=""></Label>
+                    </header>
+                </Column>
+            </columns>
+            <items>
+            <ColumnListItem id="_ID1GenColumnListItem1">
+            <cells>
+            <Text id="_ID1GenInput1" text="{EmployeeDeletedDataModel>ID}"></Text>
+            <Text id="_IDG1enInput2" text="{EmployeeDeletedDataModel>Name}"></Text>
+            <Text id="_IDG1enInput3" text="{EmployeeDeletedDataModel>Department/DepartmentName}"></Text>
+            <Text id="_IDGen1Input4" text="{EmployeeDeletedDataModel>Email}"></Text>
+            <Text id="_IDGenIn1put5" text="{EmployeeDeletedDataModel>Manager}"></Text>
+            
+           
+
+            </cells>
+            </ColumnListItem>
+            </items>
+</Table>
+    <buttons>
+    <Button id="_IDGe1nButton1" type="Reject" text="Cancel" press="onCancel2"></Button>
+    
+    </buttons>
+</Dialog>
+</core:FragmentDefinition>

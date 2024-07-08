@@ -1,0 +1,99 @@
+<mvc:View controllerName="createmultiple.controller.create"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns="sap.m" 
+    >
+    <Page id="page" title="Add Empoyees">
+        <content>
+        
+        
+
+        <Table id="batchTable" headerText="Batch" items="{jTabModel>/Carriers}">
+            <headerToolbar>
+                <Toolbar>
+                    <content>
+
+                        <Button icon="sap-icon://save" press="onBatchSave"></Button>
+                        <Button text="Cancel" press="onCancel"></Button>
+                    </content>
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column>
+                    <header>
+                    <Label text="ID"></Label>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                    <Label text="Name"></Label>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                    <Label text="Department"></Label>
+                    </header>
+                </Column>
+                <!-- <Column>
+                    <header>
+                    <Label text="Department_ID"></Label>
+                    </header>
+                </Column> -->
+                <Column>
+                    <header>
+                    <Label text="Email"></Label>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                    <Label text="Manager"></Label>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                    <Label text=""></Label>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                    <Label text=""></Label>
+                    </header>
+                </Column>
+            </columns>
+            <items>
+            <ColumnListItem>
+            <cells>
+            <Input value="{jTabModel>ID}"></Input>
+            <Input value="{jTabModel>Name}"></Input>
+            <!-- <Input id="Department" value="{jTabModel>Department}"   ></Input> -->
+            <!-- <Input value="{jTabModel>Department_ID}"></Input> -->
+            <l:VerticalLayout id="ij" class="sapUiContentPadding" width="100%">
+            <Input
+			id="Department"
+            width="140%"
+            placeholder="101:DIGITAL / 102:ABAP"
+			showSuggestion="true"
+            value="{jTabModel>Department_ID}"
+			suggestionItems="{/Department}">
+			<suggestionItems>
+				<core:Item id="djn"  text="{ID}" />
+			</suggestionItems>
+		</Input>
+</l:VerticalLayout>
+            
+            <Input value="{jTabModel>Email}"></Input>
+            <Input value="{jTabModel>Manager}"></Input>
+            
+            <Button icon="sap-icon://add" press="onAddRow"></Button>
+            <Button icon="sap-icon://delete" press="onAddDelete" visible="{jTabModel>visible}"></Button>
+
+            </cells>
+            </ColumnListItem>
+            </items>
+</Table>
+</content>
+    </Page>
+</mvc:View>
